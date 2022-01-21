@@ -41,7 +41,8 @@ app.get('/live*', (req, res) => {
 
     res.set("LivyServer-groupCast", groupCast);
     arr = {
-      "groupCast": groupCast
+      "groupCast": groupCast,
+      "status":"OK"
     };
 
     channel = url.split("/")[3]
@@ -59,9 +60,9 @@ app.get('/live*', (req, res) => {
 
         var urlRedirect;
         getLiveURL.stdout.on('data', function (data) {
-          urlRedirect = data.toString().replace("\n","");
+          urlRedirect = data.toString().replace("\n", "");
         });
-        
+
         getLiveURL.on('close', (code) => {
 
           //URL manifest has been retrieved
@@ -79,25 +80,30 @@ app.get('/live*', (req, res) => {
             const getTokenDRM = spawn('python3', [channel + "livedrm.py"], { cwd: pythonPath + groupCast });
             var token;
             getTokenDRM.stdout.on('data', function (data) {
-              token = data.toString().replace("\n","");
+              token = data.toString().replace("\n", "");
             });
-            
+
             getTokenDRM.on('close', (code) => {
 
-              arr["DRMToken"]=token.split("|")[1];
-              arr["DRMServer"]=token.split("|")[0];
-              res.status(200).send(JSON.stringify(arr))
+              try {
+                arr["DRMToken"] = token.split("|")[1];
+                arr["DRMServer"] = token.split("|")[0];
+                res.status(200).send(JSON.stringify(arr))
+              }catch(e){
+                arr["status"]="KO";
+                arr["message"]="Unable to parse Python output";
+                res.status(503).send(JSON.stringify(arr))
+              }
 
             })
 
 
-          }else{
-
+          } else {
             res.status(200).send(JSON.stringify(arr))
 
           }
 
-          
+
 
         })
 

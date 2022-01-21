@@ -21,6 +21,18 @@ from listitem import Listitem
 def get_live_url( item_id, **kwargs):
 
 
+    # Get credentials
+    f = open("credentials","r")
+    Lines = f.readlines()
+    cred=[]
+    for i in Lines:
+        cred.append(i.strip())
+
+    m6playlogin={}
+    m6playlogin["login"]=cred[0]
+    m6playlogin["password"]=cred[1]
+
+
     resp_js_id = urlquick.get(URL_GET_JS_ID_API_KEY)
     js_id = re.compile(r'client\-(.*?)\.bundle\.js').findall(
         resp_js_id.text)[0]

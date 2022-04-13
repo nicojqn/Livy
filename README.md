@@ -15,7 +15,7 @@ Live TV and Replay WebAPP, enjoy watch live TV and Replay whenever and wherever 
 2. Goto Livy dir `cd Livy`
 3. Install 
   - `apt update -y && apt install git nodejs npm python3 python3-pip -y`
-  - `cd src/server/node && npm install express compression fs encodeurl path && cd ../../..`
+  - `cd src/server/node && npm install express compression fs encodeurl path xmlhttprequest && cd ../../..`
   - `pip install urlquick`
   - Please be sure that python webutils is not installed
     If not run -> `pip uninstall webutils`

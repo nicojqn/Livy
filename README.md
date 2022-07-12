@@ -18,7 +18,7 @@ Live TV and Replay WebAPP, enjoy watch live TV and Replay whenever and wherever 
   - `cd src/server/node && npm install express compression fs encodeurl path xmlhttprequest && cd ../../..`
   - `pip install urlquick`
   - Please be sure that python webutils is not installed
-    If not run -> `pip uninstall webutils`
+    If it is installed, run -> `pip uninstall webutils`
 4. Configure Livy
   - Configure Credentials :
     - 6play : `cd src/server && python3 LivypyConfSetup.py && cd ../..` -> Then Enter Username and password
